@@ -73,7 +73,7 @@ export default function Home() {
             variants={itemVariants}
           >
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Welcome back, Arjun
+              Welcome back
             </h1>
             <p className="text-muted-foreground">
               How can I assist you today?
