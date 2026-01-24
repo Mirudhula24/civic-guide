@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Mic, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -11,6 +11,11 @@ const rotatingWords = ["accessible", "inclusive", "simple", "human", "local"];
 export function Hero() {
   const navigate = useNavigate();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const { scrollY } = useScroll();
+  
+  // Fade out scroll indicator as user scrolls
+  const scrollIndicatorOpacity = useTransform(scrollY, [0, 150], [1, 0]);
+  const scrollIndicatorY = useTransform(scrollY, [0, 150], [0, 20]);
 
   const currentWord = useMemo(() => rotatingWords[currentWordIndex], [currentWordIndex]);
 
@@ -21,6 +26,13 @@ export function Hero() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleScrollToContent = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: "smooth",
+    });
+  };
 
   const handleWhatsAppClick = () => {
     // WhatsApp business link - replace with actual number
@@ -150,20 +162,25 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator - positioned below content with proper spacing */}
+        {/* Scroll indicator - fades out on scroll and clickable */}
         <motion.div 
-          className="mt-auto pt-12 pb-8"
+          className="mt-auto pt-12 pb-8 cursor-pointer"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          style={{ 
+            opacity: scrollIndicatorOpacity,
+            y: scrollIndicatorY 
+          }}
           transition={{ delay: 1.2 }}
+          onClick={handleScrollToContent}
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2 text-muted-foreground/60"
+            className="flex flex-col items-center gap-2 text-muted-foreground/60 hover:text-muted-foreground transition-colors"
           >
             <span className="text-xs">Scroll to learn more</span>
-            <div className="w-5 h-8 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-1.5">
+            <div className="w-5 h-8 rounded-full border-2 border-muted-foreground/30 hover:border-muted-foreground/50 flex justify-center pt-1.5 transition-colors">
               <motion.div 
                 className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50"
                 animate={{ y: [0, 12, 0] }}
