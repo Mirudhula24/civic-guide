@@ -173,32 +173,33 @@
     }
   }
 
-  /* Pulse animation for mic button */
+  /* Pulse animation for mic button - gentle breathing effect */
   .mic-pulse {
-    animation: mic-pulse 2s ease-in-out infinite;
+    animation: mic-pulse 3s ease-in-out infinite;
   }
 
   @keyframes mic-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.3);
     }
     50% {
-      box-shadow: 0 0 0 20px hsl(var(--primary) / 0);
+      box-shadow: 0 0 0 16px hsl(var(--primary) / 0);
     }
   }
 
+  /* Listening state - slower, calmer animation */
   .mic-listening {
-    animation: mic-listening 0.8s ease-in-out infinite;
+    animation: mic-listening 1.5s ease-in-out infinite;
   }
 
   @keyframes mic-listening {
     0%, 100% {
       transform: scale(1);
-      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.6);
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
     }
     50% {
-      transform: scale(1.05);
-      box-shadow: 0 0 0 15px hsl(var(--primary) / 0);
+      transform: scale(1.03);
+      box-shadow: 0 0 0 12px hsl(var(--primary) / 0);
     }
   }
 

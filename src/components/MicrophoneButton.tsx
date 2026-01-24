@@ -48,10 +48,10 @@ export function MicrophoneButton({
         className={cn(
           sizeClasses[size],
           isListening ? "mic-listening bg-primary" : "mic-pulse",
-          "transition-all duration-300"
+          "transition-all duration-500"
         )}
       >
-        <Mic className={cn(iconSizes[size], isListening && "animate-pulse")} />
+        <Mic className={iconSizes[size]} />
       </Button>
       {showLabel && (
         <span className="text-sm font-medium text-muted-foreground">
