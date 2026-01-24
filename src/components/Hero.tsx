@@ -28,8 +28,8 @@ export function Hero() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative">
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-20">
+    <div className="min-h-screen flex flex-col relative pt-20">
+      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
