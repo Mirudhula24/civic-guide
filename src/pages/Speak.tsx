@@ -22,7 +22,7 @@ interface Message {
 const initialMessages: Message[] = [
   {
     id: 1,
-    text: "Hello! I'm Nada, your government scheme assistant. How can I help you today?",
+    text: "Hello! I'm Civic Bridge, your government scheme assistant. How can I help you today?",
     isUser: false,
     timestamp: "10:00 AM",
   },

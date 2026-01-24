@@ -1,11 +1,11 @@
-# Nada - Your Civic Guide
+# Civic Bridge - Your Civic Guide
 
-> **"Speak once. Nada handles the complexity."**
+> **"Speak once. Civic Bridge handles the complexity."**
 
 ---
 
 ### The Mission
-**Nada** acts as a virtual government caseworker, bridging the digital divide between citizens and the benefits they deserve. Millions of citizens in rural and semi-urban communities struggle with complex portals and bureaucratic jargon. Nada simplifies this into a **single, human conversation**.
+**Civic Bridge** acts as a virtual government caseworker, bridging the digital divide between citizens and the benefits they deserve. Millions of citizens in rural and semi-urban communities struggle with complex portals and bureaucratic jargon. Civic Bridge simplifies this into a **single, human conversation**.
 
 ---
 
@@ -14,7 +14,7 @@
 #### Voice-First Interface
 State-of-the-art voice recognition allows users to speak naturally in their local dialect.
 - **Real-time Audio Visualizer**: Interact with a responsive, high-tech interface that listens and reacts to your voice.
-- **Natural Language Understanding**: No keywords needed—just tell Nada your story.
+- **Natural Language Understanding**: No keywords needed—just tell Civic Bridge your story.
 
 #### Truly Inclusive
 - **Multilingual Support**: Breaks down language barriers by supporting 12+ regional languages.

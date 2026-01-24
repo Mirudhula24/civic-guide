@@ -37,7 +37,7 @@ export function Hero() {
 
   const handleWhatsAppClick = () => {
     // WhatsApp business link - replace with actual number
-    window.open("https://wa.me/919876543210?text=Hi%20Nada%2C%20I%20need%20help%20finding%20a%20government%20scheme", "_blank");
+    window.open("https://wa.me/919876543210?text=Hi%20Civic%20Bridge%20,I%20need%20help%20finding%20a%20government%20scheme", "_blank");
   };
 
   return (
@@ -99,7 +99,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl mx-auto"
           >
-            Speak once. Nada handles the complexity.
+            Speak once. Civic Bridge handles the complexity.
           </motion.p>
 
           {/* CTA Buttons */}

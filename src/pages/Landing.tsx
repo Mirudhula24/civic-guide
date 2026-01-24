@@ -16,12 +16,12 @@ export default function Landing() {
       <Hero />
       <ProblemStatement />
       <SolutionSection />
-      
+
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-border/50 bg-white/60 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm text-muted-foreground">
-            Nada — The Civic Bridge • Built for public systems, civic access, and inclusion.
+            Civic Bridge — The Civic Bridge • Built for public systems, civic access, and inclusion.
           </p>
         </div>
       </footer>

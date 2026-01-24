@@ -33,11 +33,11 @@ export function Navbar() {
       <nav className="hidden md:flex fixed top-4 left-1/2 -translate-x-1/2 z-50">
         <div className="flex items-center gap-1 bg-card/90 backdrop-blur-xl border-2 border-border/50 rounded-full px-2 py-2 shadow-soft">
           {/* Logo */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="text-xl font-bold text-foreground hover:text-primary transition-colors px-4"
           >
-            Nada
+            Civic Bridge
           </Link>
 
           <div className="w-px h-6 bg-border/50 mx-2" />
@@ -84,8 +84,8 @@ export function Navbar() {
                 <MoreVertical className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent 
-              align="end" 
+            <DropdownMenuContent
+              align="end"
               className="w-56 rounded-2xl bg-card border-2 border-border/50 shadow-medium p-2 mt-2"
             >
               <DropdownMenuSub>
@@ -109,7 +109,7 @@ export function Navbar() {
                 FAQs
               </DropdownMenuItem>
               <DropdownMenuSeparator className="my-2" />
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 className="rounded-xl cursor-pointer"
                 onClick={() => setIsLoggedIn(!isLoggedIn)}
               >
@@ -173,8 +173,8 @@ export function Navbar() {
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent 
-              align="end" 
+            <DropdownMenuContent
+              align="end"
               side="top"
               className="w-56 rounded-2xl bg-card border-2 border-border/50 shadow-medium p-2 mb-2"
             >
@@ -199,7 +199,7 @@ export function Navbar() {
                 FAQs
               </DropdownMenuItem>
               <DropdownMenuSeparator className="my-2" />
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 className="rounded-xl cursor-pointer"
                 onClick={() => setIsLoggedIn(!isLoggedIn)}
               >

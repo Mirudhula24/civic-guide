@@ -12,7 +12,7 @@ const steps = [
   },
   {
     icon: Search,
-    title: "Nada Searches",
+    title: "Civic Bridge Searches",
     description: "AI searches public scheme data — scholarships, subsidies, health benefits",
     color: "sky" as const,
   },
@@ -48,10 +48,10 @@ export function SolutionSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-foreground to-primary/80">
-            How Nada Works
+            How Civic Bridge Works
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Nada acts as a virtual government caseworker, bridging the gap between
+            Civic Bridge acts as a virtual government caseworker, bridging the gap between
             citizens and the benefits they deserve.
           </p>
         </motion.div>
