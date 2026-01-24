@@ -47,16 +47,19 @@ export function SolutionSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-foreground to-primary/80">
             How Nada Works
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Nada acts as a virtual government caseworker, bridging the gap between 
+            Nada acts as a virtual government caseworker, bridging the gap between
             citizens and the benefits they deserve.
           </p>
         </motion.div>
 
         <div className="relative">
+          {/* Connector Line (Desktop) */}
+          <div className="hidden lg:block absolute top-[2.5rem] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-primary/20 to-transparent z-0" />
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
               <motion.div
@@ -65,20 +68,20 @@ export function SolutionSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
+                className="text-center group"
               >
-                <div className="relative inline-block mb-4">
-                  <div className={`w-16 h-16 rounded-full ${colorClasses[step.color]} flex items-center justify-center mx-auto shadow-md`}>
-                    <step.icon className="w-8 h-8 text-foreground/80" />
+                <div className="relative inline-block mb-6">
+                  <div className={`w-20 h-20 rounded-3xl ${colorClasses[step.color]}/20 backdrop-blur-sm flex items-center justify-center mx-auto shadow-sm group-hover:scale-110 transition-transform duration-300 border border-white/50`}>
+                    <step.icon className="w-9 h-9 text-foreground/80" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center">
+                  <div className="absolute -top-3 -right-3 w-8 h-8 rounded-xl bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md rotate-12">
                     {index + 1}
                   </div>
                 </div>
-                <h3 className="font-semibold text-foreground mb-2">
+                <h3 className="text-xl font-bold text-foreground mb-3 tracking-tight">
                   {step.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground leading-relaxed px-2">
                   {step.description}
                 </p>
               </motion.div>

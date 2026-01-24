@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { MicrophoneButton } from "@/components/MicrophoneButton";
 import { QuickCard } from "@/components/QuickCard";
+import { AuroraBackground } from "@/components/AuroraBackground";
 import { useNavigate } from "react-router-dom";
 
 const quickCards = [
@@ -57,47 +58,47 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <AuroraBackground>
       <Navbar />
-      
+
       <main className="pt-24 pb-32 md:pb-12 px-4">
-        <motion.div 
+        <motion.div
           className="container mx-auto max-w-4xl"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {/* Welcome Section */}
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             variants={itemVariants}
           >
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-primary to-foreground">
               Welcome back
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-xl text-muted-foreground">
               How can I assist you today?
             </p>
           </motion.div>
 
           {/* Central Microphone */}
-          <motion.div 
+          <motion.div
             className="flex justify-center mb-16"
             variants={itemVariants}
           >
-            <MicrophoneButton 
-              size="hero" 
-              showLabel 
+            <MicrophoneButton
+              size="hero"
+              showLabel
               onStartListening={handleStartListening}
             />
           </motion.div>
 
           {/* Quick Cards Section */}
-          <motion.div className="space-y-4" variants={itemVariants}>
-            <h2 className="text-lg font-semibold text-foreground mb-4">
+          <motion.div className="space-y-6" variants={itemVariants}>
+            <h2 className="text-2xl font-bold text-foreground mb-6 tracking-tight">
               Quick Actions
             </h2>
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-3">
               {quickCards.map((card, index) => (
                 <motion.div
                   key={card.title}
@@ -117,6 +118,6 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </main>
-    </div>
+    </AuroraBackground>
   );
 }

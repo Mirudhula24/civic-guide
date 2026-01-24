@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Mic, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FloatingPaths } from "@/components/ui/background-paths";
 
 const rotatingWords = ["accessible", "inclusive", "simple", "human", "local"];
 
@@ -12,7 +13,7 @@ export function Hero() {
   const navigate = useNavigate();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const { scrollY } = useScroll();
-  
+
   // Fade out scroll indicator as user scrolls
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 150], [1, 0]);
   const scrollIndicatorY = useTransform(scrollY, [0, 150], [0, 20]);
@@ -40,8 +41,12 @@ export function Hero() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative pt-20">
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-screen flex flex-col relative pt-20 overflow-hidden">
+      <div className="absolute inset-0">
+        <FloatingPaths position={1} />
+        <FloatingPaths position={-1} />
+      </div>
+      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12 relative z-10 transition-all duration-300">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -88,7 +93,7 @@ export function Hero() {
           </motion.div>
 
           {/* Subtext */}
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
@@ -98,7 +103,7 @@ export function Hero() {
           </motion.p>
 
           {/* CTA Buttons */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
@@ -163,13 +168,13 @@ export function Hero() {
         </div>
 
         {/* Scroll indicator - fades out on scroll and clickable */}
-        <motion.div 
+        <motion.div
           className="mt-auto pt-12 pb-8 cursor-pointer"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          style={{ 
+          style={{
             opacity: scrollIndicatorOpacity,
-            y: scrollIndicatorY 
+            y: scrollIndicatorY
           }}
           transition={{ delay: 1.2 }}
           onClick={handleScrollToContent}
@@ -181,7 +186,7 @@ export function Hero() {
           >
             <span className="text-xs">Scroll to learn more</span>
             <div className="w-5 h-8 rounded-full border-2 border-muted-foreground/30 hover:border-muted-foreground/50 flex justify-center pt-1.5 transition-colors">
-              <motion.div 
+              <motion.div
                 className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50"
                 animate={{ y: [0, 12, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}

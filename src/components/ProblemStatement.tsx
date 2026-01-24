@@ -58,14 +58,14 @@ export function ProblemStatement() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-primary/80 to-foreground">
             The Problem We're Solving
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Millions of citizens in rural and semi-urban communities fail to access 
-            vital government schemes. Existing portals are text-heavy and form-driven, 
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Millions of citizens in rural and semi-urban communities fail to access
+            vital government schemes. Existing portals are text-heavy and form-driven,
             excluding the very people they are meant to serve.
           </p>
         </motion.div>
@@ -81,15 +81,15 @@ export function ProblemStatement() {
             <motion.div
               key={problem.title}
               variants={itemVariants}
-              className="card-pastel p-6 text-center"
+              className="group p-6 text-center rounded-3xl bg-white/40 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-pastel flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/80 to-white/20 border border-white/40 flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
                 <problem.icon className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="font-semibold text-foreground mb-2">
+              <h3 className="text-lg font-bold text-foreground mb-3 tracking-tight">
                 {problem.title}
               </h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {problem.description}
               </p>
             </motion.div>
