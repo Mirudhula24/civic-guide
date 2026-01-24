@@ -7,15 +7,13 @@ interface QuickCardProps {
   description: string;
   link: string;
   variant?: "mint" | "sky" | "lavender";
-  delay?: number;
 }
 
 export function QuickCard({ 
   title, 
   description, 
   link, 
-  variant = "mint",
-  delay = 0 
+  variant = "mint"
 }: QuickCardProps) {
   const variantClasses = {
     mint: "border-mint-deep/40 hover:border-mint-deep bg-gradient-to-br from-mint/50 to-mint",
@@ -27,10 +25,9 @@ export function QuickCard({
     <Link 
       to={link}
       className={cn(
-        "block card-pastel p-5 border-2 group animate-fade-in",
+        "block card-pastel p-5 border-2 group",
         variantClasses[variant]
       )}
-      style={{ animationDelay: `${delay}ms` }}
     >
       <h3 className="font-semibold text-foreground mb-2">{title}</h3>
       <p className="text-sm text-muted-foreground mb-4">{description}</p>

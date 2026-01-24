@@ -1,5 +1,8 @@
-import { useState } from "react";
+"use client";
+
+import { useState, useRef, useEffect } from "react";
 import { Send, Mic } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { ChatBubble } from "@/components/ChatBubble";
 import { QuickActionPill } from "@/components/QuickActionPill";
@@ -29,6 +32,15 @@ export default function Speak() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [inputValue, setInputValue] = useState("");
   const [isListening, setIsListening] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSend = () => {
     if (!inputValue.trim()) return;
@@ -95,46 +107,72 @@ export default function Speak() {
       <Navbar />
       
       {/* Chat Area */}
-      <main className="flex-1 pt-28 md:pt-20 pb-40 px-4 overflow-y-auto">
+      <main className="flex-1 pt-24 pb-48 md:pb-40 px-4 overflow-y-auto">
         <div className="container mx-auto max-w-2xl space-y-4">
-          {messages.map((message) => (
-            <ChatBubble
-              key={message.id}
-              message={message.text}
-              isUser={message.isUser}
-              timestamp={message.timestamp}
-            />
-          ))}
+          <AnimatePresence>
+            {messages.map((message) => (
+              <motion.div
+                key={message.id}
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                <ChatBubble
+                  message={message.text}
+                  isUser={message.isUser}
+                  timestamp={message.timestamp}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+          <div ref={messagesEndRef} />
         </div>
       </main>
 
       {/* Quick Actions & Input Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-xl border-t border-border/50 p-4">
+      <div className="fixed bottom-20 md:bottom-0 left-0 right-0 bg-background/95 backdrop-blur-xl border-t border-border/50 p-4">
         <div className="container mx-auto max-w-2xl space-y-4">
           {/* Quick Action Pills */}
           <div className="flex gap-2 justify-center flex-wrap">
-            {quickActions.map((action) => (
-              <QuickActionPill
+            {quickActions.map((action, index) => (
+              <motion.div
                 key={action}
-                label={action}
-                onClick={() => handleQuickAction(action)}
-              />
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <QuickActionPill
+                  label={action}
+                  onClick={() => handleQuickAction(action)}
+                />
+              </motion.div>
             ))}
           </div>
 
           {/* Input Bar */}
           <div className="flex items-center gap-3">
-            <Button
-              variant="mic"
-              size="icon-lg"
-              onClick={handleMicClick}
-              className={cn(
-                "shrink-0",
-                isListening && "mic-listening"
-              )}
+            <motion.div
+              whileTap={{ scale: 0.95 }}
             >
-              <Mic className="h-6 w-6" />
-            </Button>
+              <Button
+                variant="mic"
+                size="icon-lg"
+                onClick={handleMicClick}
+                className={cn(
+                  "shrink-0 relative",
+                  isListening && "mic-listening"
+                )}
+              >
+                {isListening && (
+                  <motion.div
+                    className="absolute inset-0 rounded-full bg-primary/20"
+                    animate={{ scale: [1, 1.3, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                )}
+                <Mic className="h-6 w-6 relative z-10" />
+              </Button>
+            </motion.div>
             
             <div className="flex-1 relative">
               <Input

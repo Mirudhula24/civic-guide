@@ -8,7 +8,6 @@ interface HistoryCardProps {
   lastUpdated: string;
   status: "pending" | "complete" | "review";
   link: string;
-  delay?: number;
 }
 
 const statusConfig = {
@@ -30,16 +29,14 @@ export function HistoryCard({
   schemeName, 
   lastUpdated, 
   status, 
-  link,
-  delay = 0 
+  link
 }: HistoryCardProps) {
   const statusInfo = statusConfig[status];
 
   return (
     <Link 
       to={link}
-      className="block card-pastel p-5 group animate-fade-in"
-      style={{ animationDelay: `${delay}ms` }}
+      className="block card-pastel p-5 group"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
