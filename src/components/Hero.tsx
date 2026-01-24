@@ -3,10 +3,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic } from "lucide-react";
+import { Mic, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const rotatingWords = ["accessible", "simple", "inclusive", "human", "clear"];
+const rotatingWords = ["accessible", "inclusive", "simple", "human", "local"];
 
 export function Hero() {
   const navigate = useNavigate();
@@ -17,15 +17,33 @@ export function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
-    }, 2500);
+    }, 3000); // Slower for readability
 
     return () => clearInterval(interval);
   }, []);
 
+  const handleWhatsAppClick = () => {
+    // WhatsApp business link - replace with actual number
+    window.open("https://wa.me/919876543210?text=Hi%20Nada%2C%20I%20need%20help%20finding%20a%20government%20scheme", "_blank");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-pastel flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 text-sm text-muted-foreground">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              The Civic Bridge
+            </span>
+          </motion.div>
+
           {/* Animated Hero Text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -44,7 +62,7 @@ export function Hero() {
                       initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
                       className="absolute left-0 text-primary"
                     >
                       {currentWord}
@@ -62,16 +80,17 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="text-lg md:text-xl text-muted-foreground mb-12 max-w-xl mx-auto"
+            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl mx-auto"
           >
-            Just speak your need — Nada will guide you.
+            Speak once. Nada handles the complexity.
           </motion.p>
 
-          {/* Hero Button */}
+          {/* CTA Buttons */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -89,7 +108,22 @@ export function Hero() {
                 >
                   <Mic className="h-6 w-6" />
                 </motion.div>
-                Speak Your Need
+                Speak Now
+              </Button>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                variant="outline"
+                size="xl"
+                onClick={handleWhatsAppClick}
+                className="gap-3 border-2 hover:bg-green-50 hover:border-green-200"
+              >
+                <MessageCircle className="h-6 w-6 text-green-600" />
+                Continue on WhatsApp
               </Button>
             </motion.div>
           </motion.div>
@@ -102,36 +136,42 @@ export function Hero() {
             className="mt-16 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground"
           >
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-mint" />
+              <div className="w-2 h-2 rounded-full bg-mint-deep" />
               <span>500+ Schemes</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-sky" />
+              <div className="w-2 h-2 rounded-full bg-sky-deep" />
               <span>12 Languages</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-lavender" />
+              <div className="w-2 h-2 rounded-full bg-lavender-deep" />
               <span>Voice-First</span>
             </div>
           </motion.div>
         </div>
 
-        {/* Decorative Elements */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2">
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="w-2 h-2 rounded-full bg-primary/30"
-              animate={{ opacity: [0.3, 1, 0.3] }}
-              transition={{ 
-                duration: 1.5, 
-                repeat: Infinity, 
-                delay: i * 0.3,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-        </div>
+        {/* Scroll indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-2 text-muted-foreground/60"
+          >
+            <span className="text-xs">Scroll to learn more</span>
+            <div className="w-5 h-8 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-1.5">
+              <motion.div 
+                className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50"
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+          </motion.div>
+        </motion.div>
       </main>
     </div>
   );
