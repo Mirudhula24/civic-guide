@@ -1,41 +1,94 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef, useState, useEffect } from "react";
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
   children: ReactNode;
   showRadialGradient?: boolean;
 }
 
-export function AuroraBackground({
+export const AuroraBackground = ({
   className,
   children,
   showRadialGradient = true,
   ...props
-}: AuroraBackgroundProps) {
+}: AuroraBackgroundProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      setMousePosition({ x, y });
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("mousemove", handleMouseMove);
+      container.addEventListener("mouseenter", () => setIsHovering(true));
+      container.addEventListener("mouseleave", () => setIsHovering(false));
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("mousemove", handleMouseMove);
+        container.removeEventListener("mouseenter", () => setIsHovering(true));
+        container.removeEventListener("mouseleave", () => setIsHovering(false));
+      }
+    };
+  }, []);
+
   return (
     <main>
       <div
+        ref={containerRef}
         className={cn(
-          "relative flex flex-col min-h-screen bg-white text-foreground transition-bg",
+          "relative flex flex-col min-h-screen bg-white text-foreground transition-bg overflow-hidden",
           className
         )}
         {...props}
       >
-        {/* Aurora gradient layer */}
+        {/* Animated Aurora Gradient Layer */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Primary aurora wave */}
+          <div
+            className={cn(
+              "absolute -inset-[10px] opacity-50 transition-opacity duration-700",
+              isHovering ? "opacity-70" : "opacity-50"
+            )}
+            style={{
+              background: `
+                radial-gradient(
+                  ellipse 80% 50% at ${mousePosition.x * 100}% ${mousePosition.y * 100}%,
+                  hsla(200, 80%, 85%, 0.4) 0%,
+                  transparent 50%
+                ),
+                radial-gradient(
+                  ellipse 60% 40% at ${100 - mousePosition.x * 100}% ${100 - mousePosition.y * 100}%,
+                  hsla(270, 60%, 88%, 0.35) 0%,
+                  transparent 50%
+                )
+              `,
+              transition: "background 0.3s ease-out",
+            }}
+          />
+
+          {/* Animated gradient bands */}
           <div
             className={cn(
               `
-              [--aurora-gradient:repeating-linear-gradient(100deg,hsl(200,80%,90%)_10%,hsl(220,70%,85%)_15%,hsl(270,60%,90%)_20%,hsl(200,80%,88%)_25%,hsl(180,70%,92%)_30%)]
-              [--aurora-accent:repeating-linear-gradient(100deg,hsl(210,85%,85%)_0%,hsl(240,70%,88%)_7%,hsl(280,60%,92%)_12%,hsl(200,75%,87%)_18%,hsl(170,65%,90%)_22%)]
+              [--aurora-gradient:repeating-linear-gradient(100deg,hsla(200,80%,90%,0.8)_10%,hsla(220,70%,85%,0.6)_15%,hsla(270,60%,90%,0.7)_20%,hsla(200,80%,88%,0.6)_25%,hsla(180,70%,92%,0.8)_30%)]
+              [--aurora-accent:repeating-linear-gradient(100deg,hsla(210,85%,85%,0.6)_0%,hsla(240,70%,88%,0.5)_7%,hsla(280,60%,92%,0.6)_12%,hsla(200,75%,87%,0.5)_18%,hsla(170,65%,90%,0.7)_22%)]
               [background-image:var(--aurora-gradient),var(--aurora-accent)]
               [background-size:400%,300%]
               [background-position:50%_50%,50%_50%]
               filter
-              blur-[12px]
+              blur-[15px]
               after:content-[""]
               after:absolute
               after:inset-0
@@ -51,68 +104,38 @@ export function AuroraBackground({
             )}
           />
 
-          {/* Secondary aurora layer for depth */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className={cn(
-              `
-              [--aurora-soft:repeating-linear-gradient(120deg,hsl(190,75%,92%)_5%,hsl(230,65%,90%)_12%,hsl(260,55%,93%)_18%,hsl(200,70%,91%)_24%)]
-              [background-image:var(--aurora-soft)]
-              [background-size:350%]
-              animate-aurora-slow
-              filter
-              blur-[20px]
-              `,
-              "absolute inset-0 opacity-40"
-            )}
+          {/* Interactive floating orb - follows mouse */}
+          <div
+            className="absolute w-[500px] h-[500px] rounded-full blur-3xl transition-all duration-700 ease-out"
+            style={{
+              background: `radial-gradient(circle, hsla(200, 75%, 88%, 0.5) 0%, hsla(220, 65%, 90%, 0.3) 40%, transparent 70%)`,
+              left: `calc(${mousePosition.x * 100}% - 250px)`,
+              top: `calc(${mousePosition.y * 100}% - 250px)`,
+              opacity: isHovering ? 0.6 : 0.3,
+              transform: `scale(${isHovering ? 1.1 : 1})`,
+            }}
           />
 
-          {/* Floating orbs for additional visual interest */}
-          <motion.div
-            animate={{
-              x: [0, 30, -20, 0],
-              y: [0, -40, 20, 0],
-              scale: [1, 1.1, 0.95, 1],
+          {/* Secondary orb - inverse movement */}
+          <div
+            className="absolute w-[400px] h-[400px] rounded-full blur-3xl transition-all duration-1000 ease-out"
+            style={{
+              background: `radial-gradient(circle, hsla(270, 55%, 90%, 0.4) 0%, hsla(280, 50%, 92%, 0.2) 40%, transparent 70%)`,
+              right: `calc(${mousePosition.x * 100}% - 200px)`,
+              bottom: `calc(${mousePosition.y * 100}% - 200px)`,
+              opacity: isHovering ? 0.5 : 0.25,
             }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-[15%] right-[20%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-sky/30 via-lavender/20 to-transparent blur-3xl opacity-50"
           />
-          <motion.div
-            animate={{
-              x: [0, -25, 35, 0],
-              y: [0, 30, -25, 0],
-              scale: [1, 0.9, 1.05, 1],
-            }}
-            transition={{
-              duration: 22,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute bottom-[20%] left-[15%] w-[350px] h-[350px] rounded-full bg-gradient-to-tr from-mint/25 via-sky/20 to-transparent blur-3xl opacity-40"
-          />
-          <motion.div
-            animate={{
-              x: [0, 20, -15, 0],
-              y: [0, -20, 15, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-r from-lavender/15 via-transparent to-mint/15 blur-3xl opacity-35"
-          />
+
+          {/* Static ambient orbs for depth */}
+          <div className="absolute top-[10%] right-[15%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-sky/25 via-lavender/15 to-transparent blur-3xl opacity-40 animate-float" />
+          <div className="absolute bottom-[15%] left-[10%] w-[300px] h-[300px] rounded-full bg-gradient-to-tr from-mint/20 via-sky/15 to-transparent blur-3xl opacity-35 animate-float" style={{ animationDelay: "-1.5s" }} />
+          <div className="absolute top-[40%] left-[30%] w-[250px] h-[250px] rounded-full bg-gradient-to-r from-lavender/15 via-transparent to-mint/10 blur-3xl opacity-30 animate-float" style={{ animationDelay: "-3s" }} />
         </div>
 
-        {/* Soft overlay for better text readability */}
+        {/* Soft overlay for text readability */}
         {showRadialGradient && (
-          <div className="absolute inset-0 bg-white/40 pointer-events-none" />
+          <div className="absolute inset-0 bg-white/30 pointer-events-none" />
         )}
 
         {/* Content */}
@@ -122,4 +145,4 @@ export function AuroraBackground({
       </div>
     </main>
   );
-}
+};
