@@ -302,4 +302,43 @@
   .text-balance {
     text-wrap: balance;
   }
+  
+  /* Aurora background animations */
+  @keyframes aurora {
+    0% {
+      background-position: 50% 50%, 50% 50%;
+    }
+    25% {
+      background-position: 0% 100%, 25% 75%;
+    }
+    50% {
+      background-position: 100% 50%, 75% 25%;
+    }
+    75% {
+      background-position: 50% 0%, 50% 100%;
+    }
+    100% {
+      background-position: 50% 50%, 50% 50%;
+    }
+  }
+
+  @keyframes aurora-slow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-aurora {
+    animation: aurora 20s ease-in-out infinite;
+  }
+
+  .animate-aurora-slow {
+    animation: aurora-slow 25s ease-in-out infinite;
+  }
 }
