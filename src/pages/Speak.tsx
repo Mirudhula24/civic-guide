@@ -19,6 +19,7 @@ interface Message {
   timestamp: string;
 }
 
+<<<<<<< HEAD
 const quickActions = ["Yes", "No", "Repeat", "Help"];
 
 // Helper function to get formatted time
@@ -28,10 +29,26 @@ const getFormattedTime = () => {
 
 export default function Speak() {
   const [messages, setMessages] = useState<Message[]>([]); // start empty
+=======
+const initialMessages: Message[] = [
+  {
+    id: 1,
+    text: "Hello! I'm Civic Bridge, your government scheme assistant. How can I help you today?",
+    isUser: false,
+    timestamp: "10:00 AM",
+  },
+];
+
+const quickActions = ["Yes", "No", "Repeat", "Help"];
+
+export default function Speak() {
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
+>>>>>>> a0264a067352844d45907c9ee6c70e3ce62fea53
   const [inputValue, setInputValue] = useState("");
   const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+<<<<<<< HEAD
   // ---------- Helper to append messages safely ----------
   const appendMessage = (newMessage: Omit<Message, "id">) => {
     setMessages((prev) => [
@@ -64,10 +81,32 @@ export default function Speak() {
       timestamp: getFormattedTime(),
     });
 
+=======
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSend = () => {
+    if (!inputValue.trim()) return;
+
+    const newMessage: Message = {
+      id: messages.length + 1,
+      text: inputValue,
+      isUser: true,
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    };
+
+    setMessages([...messages, newMessage]);
+>>>>>>> a0264a067352844d45907c9ee6c70e3ce62fea53
     setInputValue("");
 
     // Simulate AI response
     setTimeout(() => {
+<<<<<<< HEAD
       appendMessage({
         text: "I understand you're looking for assistance. Let me find the best government schemes that match your needs. Could you tell me more about your specific requirement?",
         isUser: false,
@@ -106,6 +145,50 @@ export default function Speak() {
         setInputValue("I need help with education scholarship");
         setIsListening(false);
       }, 4000);
+=======
+      const aiResponse: Message = {
+        id: messages.length + 2,
+        text: "I understand you're looking for assistance. Let me find the best government schemes that match your needs. Could you tell me more about your specific requirement?",
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      };
+      setMessages((prev) => [...prev, aiResponse]);
+    }, 1000);
+  };
+
+  const handleQuickAction = (action: string) => {
+    const newMessage: Message = {
+      id: messages.length + 1,
+      text: action,
+      isUser: true,
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    };
+
+    setMessages([...messages, newMessage]);
+
+    // Simulate AI response
+    setTimeout(() => {
+      const aiResponse: Message = {
+        id: messages.length + 2,
+        text: action === "Help"
+          ? "I can help you find government schemes for education, healthcare, housing, and more. Just describe your need or ask a question!"
+          : `You selected "${action}". How would you like me to proceed?`,
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      };
+      setMessages((prev) => [...prev, aiResponse]);
+    }, 800);
+  };
+
+  const handleMicClick = () => {
+    setIsListening(!isListening);
+    if (!isListening) {
+      // Simulate voice recognition
+      setTimeout(() => {
+        setInputValue("I need help with education scholarship");
+        setIsListening(false);
+      }, 4000); // Longer duration to show off the visualizer
+>>>>>>> a0264a067352844d45907c9ee6c70e3ce62fea53
     }
   };
 
@@ -158,7 +241,14 @@ export default function Speak() {
 
           {/* Input Bar */}
           <div className="bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg rounded-[2rem] p-2 flex items-center gap-2 relative overflow-hidden">
+<<<<<<< HEAD
             <motion.div whileTap={{ scale: 0.95 }} className="relative z-10">
+=======
+            <motion.div
+              whileTap={{ scale: 0.95 }}
+              className="relative z-10"
+            >
+>>>>>>> a0264a067352844d45907c9ee6c70e3ce62fea53
               <Button
                 variant="mic"
                 size="icon-lg"
@@ -202,4 +292,8 @@ export default function Speak() {
       </div>
     </AuroraBackground>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a0264a067352844d45907c9ee6c70e3ce62fea53
