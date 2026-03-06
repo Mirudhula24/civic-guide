@@ -40,5 +40,11 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
+import { handleUserQuery } from "./services/ai/orchestrator";
 
+handleUserQuery("What is PM scholarship?")
+  .then(res => console.log(res));
+
+handleUserQuery("Am I eligible for scholarship?")
+  .then(res => console.log(res));
 export default App;

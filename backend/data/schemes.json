@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Central Sector Scholarship Scheme",
+    "keywords": [
+      "scholarship",
+      "students",
+      "education",
+      "छात्रवृत्ति"
+    ],
+    "category": "education",
+    "description": "Government scholarship program that provides financial assistance to meritorious students from low-income families to pursue higher education.",
+    "eligibility": "Students scoring above 80% in Class 12 with family income below ₹8 lakh.",
+    "benefits": "₹10,000 per year for undergraduate studies and ₹20,000 per year for postgraduate studies."
+  },
+  {
+    "name": "Ayushman Bharat",
+    "keywords": [
+      "ayushman",
+      "health",
+      "insurance",
+      "hospital",
+      "आयुष्मान",
+      "स्वास्थ्य",
+      "चिकित्सा",
+      "மருத்துவம்"
+    ],
+      "category": "health",
+      "description": "Health insurance scheme providing financial protection for medical treatment.",
+      "eligibility": "Families identified in the Socio-Economic Caste Census database.",
+      "benefits": "Health coverage up to ₹5 lakh per family per year."
+    }
+  ]
