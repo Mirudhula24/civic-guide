@@ -81,9 +81,9 @@ export function ProblemStatement() {
             <motion.div
               key={problem.title}
               variants={itemVariants}
-              className="group p-6 text-center rounded-3xl bg-white/40 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group p-6 text-center rounded-3xl bg-card/40 backdrop-blur-md border border-border/50 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/80 to-white/20 border border-white/40 flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-card/80 to-card/20 border border-border/40 flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
                 <problem.icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-lg font-bold text-foreground mb-3 tracking-tight">

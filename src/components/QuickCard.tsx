@@ -16,16 +16,16 @@ export function QuickCard({
   variant = "mint"
 }: QuickCardProps) {
   const variantClasses = {
-    mint: "group-hover:border-mint-deep/60 bg-white/40 backdrop-blur-md",
-    sky: "group-hover:border-sky-deep/60 bg-white/40 backdrop-blur-md",
-    lavender: "group-hover:border-lavender-deep/60 bg-white/40 backdrop-blur-md",
+    mint: "group-hover:border-mint-deep/60 bg-card/40 backdrop-blur-md",
+    sky: "group-hover:border-sky-deep/60 bg-card/40 backdrop-blur-md",
+    lavender: "group-hover:border-lavender-deep/60 bg-card/40 backdrop-blur-md",
   };
 
   return (
     <Link
       to={link}
       className={cn(
-        "block p-6 rounded-3xl border border-white/20 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group relative overflow-hidden",
+        "block p-6 rounded-3xl border border-border/50 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group relative overflow-hidden",
         variantClasses[variant]
       )}
     >

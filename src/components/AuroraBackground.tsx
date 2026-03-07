@@ -48,7 +48,7 @@ export const AuroraBackground = ({
       <div
         ref={containerRef}
         className={cn(
-          "relative flex flex-col min-h-screen bg-white text-foreground transition-bg overflow-hidden",
+          "relative flex flex-col min-h-screen bg-transparent text-foreground transition-bg overflow-hidden",
           className
         )}
         {...props}
@@ -99,7 +99,7 @@ export const AuroraBackground = ({
               after:mix-blend-soft-light
               `,
               showRadialGradient &&
-                `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]`,
+              `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]`,
               "absolute -inset-[10px] opacity-60"
             )}
           />
@@ -135,7 +135,7 @@ export const AuroraBackground = ({
 
         {/* Soft overlay for text readability */}
         {showRadialGradient && (
-          <div className="absolute inset-0 bg-white/30 pointer-events-none" />
+          <div className="absolute inset-0 bg-transparent pointer-events-none" />
         )}
 
         {/* Content */}

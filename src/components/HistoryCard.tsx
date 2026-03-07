@@ -6,22 +6,22 @@ import { Badge } from "@/components/ui/badge";
 interface HistoryCardProps {
   schemeName: string;
   lastUpdated: string;
-  status: "pending" | "complete" | "review";
+  status: "pending" | "approved" | "rejected";
   link: string;
 }
 
 const statusConfig = {
   pending: {
     label: "Documents Pending",
-    className: "bg-status-pending text-status-pending-text border-status-pending",
+    className: "bg-amber-500/10 text-amber-500 border-amber-500/20",
   },
-  complete: {
-    label: "Completed",
-    className: "bg-status-complete text-status-complete-text border-status-complete",
+  approved: {
+    label: "Approved",
+    className: "bg-green-500/10 text-green-500 border-green-500/20",
   },
-  review: {
-    label: "Under Review",
-    className: "bg-status-review text-status-review-text border-status-review",
+  rejected: {
+    label: "Rejected",
+    className: "bg-red-500/10 text-red-500 border-red-500/20",
   },
 };
 
@@ -36,7 +36,7 @@ export function HistoryCard({
   return (
     <Link
       to={link}
-      className="block p-6 rounded-3xl bg-white/40 backdrop-blur-md border border-white/20 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden"
+      className="block p-6 rounded-3xl bg-card/40 backdrop-blur-md border border-border/50 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden"
     >
       <div className="flex items-start justify-between gap-4 relative z-10">
         <div className="flex-1">
