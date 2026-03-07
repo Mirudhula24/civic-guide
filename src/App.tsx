@@ -4,11 +4,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Index from "./pages/Index";
-import Home from "./pages/Home";
-import Speak from "./pages/Speak";
+import Landing from "./pages/Landing";
+import Chat from "./pages/Chat";
 import History from "./pages/History";
+import LanguageSelector from "./pages/LanguageSelector";
 import NotFound from "./pages/NotFound";
+import { AppProvider } from "./context/AppContext";
 
 const queryClient = new QueryClient();
 
@@ -18,10 +19,10 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Index />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/speak" element={<Speak />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/chat" element={<Chat />} />
         <Route path="/history" element={<History />} />
+        <Route path="/language" element={<LanguageSelector />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -30,21 +31,17 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <AppProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </AppProvider>
 );
-import { handleUserQuery } from "./services/ai/orchestrator";
 
-handleUserQuery("What is PM scholarship?")
-  .then(res => console.log(res));
-
-handleUserQuery("Am I eligible for scholarship?")
-  .then(res => console.log(res));
 export default App;

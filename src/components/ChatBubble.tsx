@@ -20,7 +20,7 @@ export function ChatBubble({ message, isUser = false, timestamp, animate = true 
     // Reset displayed text when message changes
     setDisplayedText("");
     let currentIndex = 0;
-    
+
     const interval = setInterval(() => {
       if (currentIndex < message.length) {
         setDisplayedText(message.substring(0, currentIndex + 1));
@@ -41,18 +41,21 @@ export function ChatBubble({ message, isUser = false, timestamp, animate = true 
       )}
     >
       <div className={cn(
-        "max-w-[80%] md:max-w-[70%] p-4 rounded-2xl shadow-sm",
+        "max-w-[85%] md:max-w-[75%] p-4 rounded-3xl shadow-lg backdrop-blur-md relative overflow-hidden",
         isUser
-          ? "bubble-user rounded-br-none bg-gradient-to-br from-primary to-primary/80 text-primary-foreground"
-          : "bubble-ai rounded-bl-none bg-white border border-border/50"
+          ? "bubble-user rounded-br-sm bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground border border-white/20 shadow-primary/20"
+          : "bubble-ai rounded-bl-sm bg-white/10 dark:bg-black/20 border border-white/30 dark:border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]"
       )}>
+        {/* Subtle inner highlight for 3D effect */}
+        <div className="absolute inset-0 rounded-3xl border border-white/20 dark:border-white/5 pointer-events-none mix-blend-overlay"></div>
+
         <p className={cn(
-          "text-sm md:text-base leading-relaxed",
-          isUser ? "text-primary-foreground" : "text-foreground"
+          "text-sm md:text-base leading-relaxed relative z-10",
+          isUser ? "text-primary-foreground font-medium" : "text-foreground font-medium"
         )}>
           {displayedText}
           {!isUser && animate && displayedText.length < message.length && (
-            <span className="inline-block w-1 h-4 ml-0.5 align-middle bg-primary animate-pulse" />
+            <span className="inline-block w-1.5 h-4 ml-1 align-middle bg-primary/70 animate-pulse rounded-full" />
           )}
         </p>
         {timestamp && (

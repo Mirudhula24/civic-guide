@@ -18,8 +18,8 @@ import {
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Home", path: "/home", icon: Home },
-  { label: "Speak", path: "/speak", icon: Mic },
+  { label: "Home", path: "/", icon: Home },
+  { label: "Chat", path: "/chat", icon: Mic },
   { label: "Assistance History", path: "/history", icon: Clock },
 ];
 

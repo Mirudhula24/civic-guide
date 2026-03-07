@@ -11,19 +11,19 @@ const quickCards = [
   {
     title: "Scholarship Assistance",
     description: "Need help with scholarship? Check eligibility now",
-    link: "/speak",
+    link: "/chat",
     variant: "mint" as const,
   },
   {
     title: "Housing Scheme",
     description: "Explore government housing benefits for your family",
-    link: "/speak",
+    link: "/chat",
     variant: "sky" as const,
   },
   {
     title: "Healthcare Support",
     description: "Access affordable healthcare programs in your area",
-    link: "/speak",
+    link: "/chat",
     variant: "lavender" as const,
   },
 ];
@@ -54,7 +54,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleStartListening = () => {
-    navigate("/speak");
+    navigate("/chat");
   };
 
   return (
