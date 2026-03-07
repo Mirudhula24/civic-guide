@@ -102,6 +102,9 @@ app.post("/detect-language", async (req, res) => {
 app.post("/ask-ai", async (req, res) => {
   try {
     const { prompt, userProfile } = req.body;
+    if(!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
     const intent = detectIntent(prompt);
    
     let filteredSchemes = schemes;
@@ -159,7 +162,7 @@ app.post("/ask-ai", async (req, res) => {
 
   } catch (error) {
     console.error("BEDROCK ERROR:", error);
-    res.status(500).json({ error: "Bedrock request failed" });
+    res.status(500).json({ error: error.message });
   }
 });
 const PORT = process.env.PORT || 5000;

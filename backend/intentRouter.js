@@ -1,4 +1,5 @@
 function detectIntent(input) {
+    if(!input) return "general";
     const text = input.toLowerCase();
   
     const schemeKeywords = [
@@ -26,7 +27,7 @@ function detectIntent(input) {
     ];
   
     for (const word of schemeKeywords) {
-      if (text.includes(word)) {
+      if (lower.text.includes(word)) {
         return "scheme";
       }
     }
