@@ -34,6 +34,28 @@ State-of-the-art voice recognition allows users to speak naturally in their loca
 - **UI Components**: Shadcn UI, Radix Primitives
 - **Design System**: Custom Glassmorphism & Aurora Gradients
 
+### Backend API DocumentationAI-powered civic assistance platform designed to bridge the gap between citizens and government schemes using AWS Serverless architecture.
+🔗 Base URL[https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com](https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com)
+📱 User Registration & Profile
+Manage citizen profiles and onboarding.
+Endpoint,Method,Description,Payload / Params
+/register,POST,Register a new citizen,"{""phone"": ""9876543210"", ""name"": ""Name"", ""language"": ""en""}"
+/register,GET,Lookup user by phone,?phone=9876543210
+
+📝 Scheme Applications
+Track and manage scheme application history.
+Endpoint,Method,Description,Payload / Params
+/applications,POST,File a new application,"{""userId"": ""USER#123"", ""schemeId"": ""SCHEME_01"", ""schemeName"": ""Name""}"
+/applications,GET,Get user application history,?userId=USER%23123
+
+⚠️ Integration Note: When calling the GET /applications endpoint, ensure the # in the userId is URL-encoded as %23 (e.g., USER%23d87b75a8).
+
+🛠️ Tech Stack
+Compute: AWS Lambda (Python 3.12)
+API Layer: Amazon API Gateway (HTTP API)
+Database: Amazon DynamoDB (NoSQL)
+Indexes: Global Secondary Indexes (GSI) for high-speed lookups by Phone and User ID.
+
 ---
 
 <div align="center">
