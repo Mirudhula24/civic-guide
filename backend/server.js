@@ -6,6 +6,13 @@ const { detectIntent } = require("./intentRouter");
 const { ComprehendClient, DetectDominantLanguageCommand } = require("@aws-sdk/client-comprehend");
 const { BedrockRuntimeClient, InvokeModelCommand } = require("@aws-sdk/client-bedrock-runtime");
 const { semanticSearch } = require("./retrieval");
+const {
+  BedrockAgentRuntimeClient,
+  RetrieveAndGenerateCommand
+} = require("@aws-sdk/client-bedrock-agent-runtime");
+
+
+
 
 const app = express();
 app.use(cors());
@@ -29,6 +36,14 @@ const bedrock = new BedrockRuntimeClient({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
+});
+
+const kbClient = new BedrockAgentRuntimeClient({
+  region: "ap-south-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  }
 });
 
 function findRelevantScheme(query) {
@@ -96,39 +111,25 @@ app.post("/ask-ai", async (req, res) => {
         s => s.category === "education"
       );
     }
-    const schemesFound = semanticSearch(prompt, filteredSchemes);
-    let eligibleSchemes = schemesFound;
-
-    if (userProfile) {
-      eligibleSchemes = schemesFound.filter((scheme) => {
-
-        if (scheme.income && userProfile.income > scheme.income) {
-          return false;
+    //const schemesFound = semanticSearch(prompt, filteredSchemes);
+    const kbCommand = new RetrieveAndGenerateCommand({
+      input: {
+        text: prompt
+      },
+      retrieveAndGenerateConfiguration: {
+        type: "KNOWLEDGE_BASE",
+        knowledgeBaseConfiguration: {
+          knowledgeBaseId: "O1CVOKYQ0C",
+          modelArn:
+            "arn:aws:bedrock:ap-south-1::foundation-model/anthropic.claude-3-haiku-20240307-v1:0"
         }
-
-        if (scheme.age) {
-          if (
-            userProfile.age < scheme.age.min ||
-            userProfile.age > scheme.age.max
-          ) {
-            return false;
-          }
-        }
-
-        return true;
-      });
-    }    
-    let context = "";
-
-    eligibleSchemes.forEach((scheme) => {
-      context += `
-    Scheme Name: ${scheme.name}
-    Description: ${scheme.description}
-    Eligibility: ${scheme.eligibility}
-    Benefits: ${scheme.benefits}
-
-    `;
+      }
     });
+    
+    const kbResponse = await kbClient.send(kbCommand);
+    
+    const reply = kbResponse.output.text;
+    
 
     let systemPrompt = "";
     if (intent === "scheme") {
@@ -150,44 +151,6 @@ app.post("/ask-ai", async (req, res) => {
     - Use proper spacing and bullet points if needed.
     `;
     }
-    const command = new InvokeModelCommand({
-      modelId: "anthropic.claude-3-haiku-20240307-v1:0",
-      contentType: "application/json",
-      accept: "application/json",
-      body: JSON.stringify({
-        anthropic_version: "bedrock-2023-05-31",
-        max_tokens: 400,
-        system: systemPrompt,
-        messages: [
-          {
-            role: "user",
-            content:  `
-            User question:
-            ${prompt}
-            
-            Use the following scheme information if relevant:
-            
-            ${context}
-            
-            Explain in simple terms for a citizen.
-            `
-          }
-        ]
-      })
-    });
-
-    const response = await bedrock.send(command);
-
-    const decoded = new TextDecoder().decode(response.body);
-
-    const parsed = JSON.parse(decoded);
-
-    const rawReply = parsed.content[0].text;
-
-    const reply = rawReply
-      .replace(/\\n/g, "\n")
-      .replace(/\n\s+/g, "\n")
-      .trim();
 
     res.json({
         intent,
