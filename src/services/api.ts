@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const MOCK_MODE = true;
+const MOCK_MODE = false;
 
 const API_BASE_URL = 'http://civicbridge-backend.ap-south-1.elasticbeanstalk.com';
 const LAMBDA_BASE_URL = 'https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com'; // Defaulting lambda for the other routes unless specified otherwise
@@ -33,11 +33,24 @@ export const ApiService = {
         }
 
         try {
-            const response = await axios.post(`${API_BASE_URL}/ask-ai`, {
-                message: message,
-                language: language
+            const apiResponse = await axios.post(`${API_BASE_URL}/ask-ai`, {
+                prompt: message
             });
-            return response.data;
+
+            // Extract the response text
+            let extractedText = '';
+            if (typeof apiResponse.data === 'string') {
+                try {
+                    const parsed = JSON.parse(apiResponse.data);
+                    extractedText = parsed.reply || parsed.response || parsed.text || parsed.answer || apiResponse.data;
+                } catch {
+                    extractedText = apiResponse.data;
+                }
+            } else if (apiResponse.data && typeof apiResponse.data === 'object') {
+                extractedText = apiResponse.data.reply || apiResponse.data.response || apiResponse.data.text || apiResponse.data.answer || JSON.stringify(apiResponse.data);
+            }
+
+            return { response: extractedText };
         } catch (error) {
             console.error('Error calling /ask-ai:', error);
             throw error;

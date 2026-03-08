@@ -48,7 +48,7 @@ export function Hero() {
   };
 
   const handleWhatsAppClick = () => {
-    window.open("https://wa.me/91XXXXXXXXXX?text=Hi%20Civic%20Bridge,%20I%20need%20help", "_blank");
+    window.open("https://wa.me/14155238886?text=Hi%20Civic%20Bridge,%20I%20need%20help", "_blank");
   };
 
   return (
@@ -117,7 +117,7 @@ export function Hero() {
                 variant="outline"
                 size="xl"
                 onClick={handleWhatsAppClick}
-                className="w-full sm:w-auto gap-3 bg-white/50 hover:bg-white/80 backdrop-blur-md border-white/20 shadow-lg rounded-full px-8 h-14 text-lg"
+                className="w-full sm:w-auto gap-3 bg-white/50 hover:bg-white/80 backdrop-blur-md border-white/20 shadow-lg rounded-full px-8 h-14 text-lg text-background font-medium"
               >
                 <MessageCircle className="h-5 w-5 text-green-600" />
                 Continue on WhatsApp
@@ -142,7 +142,7 @@ export function Hero() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 + idx * 0.1 }}
-                  className="px-4 py-2 md:px-5 rounded-full bg-white/40 backdrop-blur-lg border border-white/50 text-sm font-medium shadow-sm hover:shadow-md hover:bg-white/60 transition-all text-foreground"
+                  className="px-4 py-2 md:px-5 rounded-full bg-white/40 backdrop-blur-lg border border-white/50 text-sm font-semibold shadow-sm hover:shadow-md hover:bg-white/60 transition-all text-background"
                 >
                   {lang}
                 </motion.button>

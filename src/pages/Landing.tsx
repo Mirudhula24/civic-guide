@@ -18,9 +18,9 @@ export default function Landing() {
       <SolutionSection />
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-border/50 bg-white/60 backdrop-blur-sm">
+      <footer className="py-12 px-6 border-t border-border/50 bg-white/20 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-foreground/80 font-medium">
             Civic Bridge — The Civic Bridge • Built for public systems, civic access, and inclusion.
           </p>
         </div>

@@ -53,7 +53,7 @@ export function Navbar() {
                   className={cn(
                     "relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200",
                     isActive
-                      ? "text-foreground"
+                      ? "text-background font-semibold"
                       : "text-muted-foreground hover:text-foreground"
                   )}
                 >
@@ -143,7 +143,7 @@ export function Navbar() {
                 className={cn(
                   "relative flex items-center justify-center p-3 rounded-full transition-colors duration-200",
                   isActive
-                    ? "text-foreground"
+                    ? "text-background"
                     : "text-muted-foreground"
                 )}
               >
