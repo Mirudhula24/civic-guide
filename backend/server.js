@@ -27,6 +27,7 @@ const client = new ComprehendClient({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: process.env.AWS_SESSION_TOKEN || undefined
   },
 });
 
@@ -35,6 +36,7 @@ const bedrock = new BedrockRuntimeClient({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: process.env.AWS_SESSION_TOKEN || undefined
   },
 });
 
@@ -42,7 +44,8 @@ const kbClient = new BedrockAgentRuntimeClient({
   region: "ap-south-1",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: process.env.AWS_SESSION_TOKEN || undefined
   }
 });
 
@@ -102,11 +105,11 @@ app.post("/detect-language", async (req, res) => {
 app.post("/ask-ai", async (req, res) => {
   try {
     const { prompt, userProfile } = req.body;
-    if(!prompt) {
+    if (!prompt) {
       return res.status(400).json({ error: "Prompt is required" });
     }
     const intent = detectIntent(prompt);
-   
+
     let filteredSchemes = schemes;
 
     if (intent === "scheme") {
@@ -128,11 +131,11 @@ app.post("/ask-ai", async (req, res) => {
         }
       }
     });
-    
+
     const kbResponse = await kbClient.send(kbCommand);
-    
+
     const reply = kbResponse.output.text;
-    
+
 
     let systemPrompt = "";
     if (intent === "scheme") {
@@ -156,8 +159,8 @@ app.post("/ask-ai", async (req, res) => {
     }
 
     res.json({
-        intent,
-        reply
+      intent,
+      reply
     });
 
   } catch (error) {
