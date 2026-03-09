@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const MOCK_MODE = false;
 
-const API_BASE_URL = '//civicbridge-backend.ap-south-1.elasticbeanstalk.com';
+const API_BASE_URL = '/api';
 const LAMBDA_BASE_URL = 'https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com'; // Defaulting lambda for the other routes unless specified otherwise
 
 export interface ChatMessage {
@@ -33,25 +33,28 @@ export const ApiService = {
         }
 
         try {
-            const apiResponse = await axios.post(`${API_BASE_URL}/ask-ai`, JSON.stringify({
-                prompt: message
-            }), {
+            const response = await fetch(`${API_BASE_URL}/ask-ai`, {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ prompt: message })
             });
+
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}. Response: ${text}`);
+            }
+
+            const data = await response.json();
 
             // Extract the response text
             let extractedText = '';
-            if (typeof apiResponse.data === 'string') {
-                try {
-                    const parsed = JSON.parse(apiResponse.data);
-                    extractedText = parsed.reply || parsed.response || parsed.text || parsed.answer || apiResponse.data;
-                } catch {
-                    extractedText = apiResponse.data;
-                }
-            } else if (apiResponse.data && typeof apiResponse.data === 'object') {
-                extractedText = apiResponse.data.reply || apiResponse.data.response || apiResponse.data.text || apiResponse.data.answer || JSON.stringify(apiResponse.data);
+            if (data && typeof data === 'object') {
+                extractedText = data.reply || data.response || data.text || data.answer || JSON.stringify(data);
+            } else {
+                extractedText = String(data);
             }
 
             return { response: extractedText };
