@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const MOCK_MODE = false;
 
-const API_BASE_URL = 'https://civicbridge-backend.ap-south-1.elasticbeanstalk.com';
+const API_BASE_URL = '/api';
 const LAMBDA_BASE_URL = 'https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com'; // Defaulting lambda for the other routes unless specified otherwise
 
 export interface ChatMessage {
@@ -33,8 +33,12 @@ export const ApiService = {
         }
 
         try {
-            const apiResponse = await axios.post(`${API_BASE_URL}/ask-ai`, {
+            const apiResponse = await axios.post(`${API_BASE_URL}/ask-ai`, JSON.stringify({
                 prompt: message
+            }), {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             // Extract the response text
