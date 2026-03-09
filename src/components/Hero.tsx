@@ -80,7 +80,7 @@ export function Hero() {
             className="mb-4"
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight">
-              Apni Baat, Sarkar Tak
+              Bridging Citizens & Government
             </h1>
           </motion.div>
 
