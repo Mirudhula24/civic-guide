@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const MOCK_MODE = false;
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com';
 const LAMBDA_BASE_URL = 'https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com'; // Defaulting lambda for the other routes unless specified otherwise
 
 export interface ChatMessage {

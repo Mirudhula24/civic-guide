@@ -10,13 +10,6 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
-    proxy: {
-      "/api": {
-        target: "https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
   },
   plugins: [react()],
   build: {
