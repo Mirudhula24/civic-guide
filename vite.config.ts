@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
     },
     proxy: {
       "/api": {
-        target: "http://civicbridge-backend.ap-south-1.elasticbeanstalk.com",
+        target: "https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
