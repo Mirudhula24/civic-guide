@@ -35,7 +35,7 @@ State-of-the-art voice recognition allows users to speak naturally in their loca
 - **Design System**: Custom Glassmorphism & Aurora Gradients
 
 ### Backend API DocumentationAI-powered civic assistance platform designed to bridge the gap between citizens and government schemes using AWS Serverless architecture.
-🔗 Base URL[https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com](https://1fnk1ml6jf.execute-api.ap-south-1.amazonaws.com)
+🔗 Base URL[)
 📱 User Registration & Profile
 Manage citizen profiles and onboarding.
 Endpoint,Method,Description,Payload / Params
